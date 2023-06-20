@@ -25,7 +25,9 @@ if($result):
             $user_item = array(
                 'user_id' => $user_id,
                 'user_name' => $user_name,
+                'profile_pic' => $profile_pic,
                 'full_name' => $full_name,
+                'pronouns' => $pronouns,
                 'artist_name' => $artist_name,
                 'user_email' => $user_email,
                 'phone_number' => $phone_number,

@@ -22,6 +22,7 @@ $user_array = array(
     'user_name' => $user->user_name,
     'user_email' => $user->user_email,
     'full_name' => $user->full_name,
+    'pronouns' => $user->pronouns,
     'artist_name' => $user->artist_name,
     'website' => $user->website,
     'twitter' => $user->twitter,

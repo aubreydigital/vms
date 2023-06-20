@@ -9,6 +9,7 @@
         public $user_email;
         public $user_password;
         public $full_name;
+        public $pronouns;
         public $artist_name;
         public $phone_number;
         public $website;
@@ -27,7 +28,9 @@
                 $query = 
                 'SELECT u.user_id,
                         u.user_name,
+                        u.profile_pic,
                         u.full_name,
+                        u.pronouns,
                         u.artist_name,
                         u.user_email,
                         u.phone_number,
@@ -63,9 +66,11 @@
                 'SELECT 
                     u.user_id,
                     u.user_name,
+                    u.profile_pic,
                     u.user_email,
                     u.created_at,
                     u.full_name,
+                    u.pronouns,
                     u.artist_name,
                     u.phone_number,
                     u.website,
@@ -95,7 +100,9 @@
             $this->user_id = $row['user_id'];
             $this->user_name = $row['user_name'];
             $this->user_email = $row['user_email'];
+            $this->profile_pic = $row['profile_pic'];
             $this->full_name = $row['full_name'];
+            $this->pronouns = $row['pronouns'];
             $this->artist_name = $row['artist_name'];
             $this->phone_number = $row['phone_number'];
             $this->website = $row['website'];
@@ -116,6 +123,7 @@
             SET
                 user_name = :user_name,
                 user_email = :user_email,
+                profile_pic - :profile_pic,
                 user_password = :user_password';
         
             //prepare
@@ -123,11 +131,13 @@
 
             //sanitize
             $this->user_name = htmlspecialchars(strip_tags($this->user_name));
+            $this->profile_pic = htmlspecialchars(strip_tags($this->profile_pic));
             $this->user_email = htmlspecialchars(strip_tags($this->user_email));
             $this->user_password = htmlspecialchars(strip_tags($this->user_password));
 
             //bind data
             $stmt->bindParam(':user_name', $this->user_name);
+            $stmt->bindParam(':profile_pic', $this->profile_pic);
             $stmt->bindParam(':user_email', $this->user_email);
             $stmt->bindParam(':user_password', $this->user_password);
 
@@ -155,12 +165,15 @@
             // $token = str_replace('Bearer ', '', $headers['Authorization']);
             // try {
             //     $token = JWT::decode($token, $this->key, array('HS512'));
+                // user_password = :user_password,
+
                 $query = 'UPDATE ' . $this->table . '
             SET
                 user_name = :user_name,
                 user_email = :user_email,
-                user_password = :user_password,
+                profile_pic = :profile_pic,
                 full_name = :full_name,
+                pronouns = :pronouns,
                 artist_name = :artist_name,
                 phone_number = :phone_number,
                 website = :website,
@@ -175,10 +188,12 @@
 
             $this->user_name = htmlspecialchars(strip_tags($this->user_name));
             $this->user_email = htmlspecialchars(strip_tags($this->user_email));
-            $this->user_password = htmlspecialchars(strip_tags($this->user_password));
+            $this->profile_pic = htmlspecialchars(strip_tags($this->profile_pic));
+            // $this->user_password = htmlspecialchars(strip_tags($this->user_password));
             $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             if (isset($_POST['full_name']) && isset($_POST['artist_name']) && isset($_POST['phone_number']) && isset($_POST['website']) && isset($_POST['twitter']) && isset($_POST['twitch']) && isset($_POST['soundcloud']) && isset($_POST['instagram'])) {
             $this->full_name = htmlspecialchars(strip_tags($this->full_name));
+            $this->pronouns = htmlspecialchars(strip_tags($this->pronouns));
             $this->artist_name = htmlspecialchars(strip_tags($this->artist_name));
             $this->phone_number = htmlspecialchars(strip_tags($this->phone_number));
             $this->website = htmlspecialchars(strip_tags($this->website));
@@ -189,9 +204,11 @@
         }
             $stmt->bindParam(':user_name', $this->user_name);
             $stmt->bindParam(':user_email', $this->user_email);
-            $stmt->bindParam(':user_password', $this->user_password);
+            $stmt->bindParam(':profile_pic', $this->profile_pic);
+            // $stmt->bindParam(':user_password', $this->user_password);
             $stmt->bindParam(':user_id', $this->user_id);
             $stmt->bindParam(':full_name', $this->full_name);
+            $stmt->bindParam(':pronouns', $this->pronouns);
             $stmt->bindParam(':artist_name', $this->artist_name);
             $stmt->bindParam(':phone_number', $this->phone_number);
             $stmt->bindParam(':website', $this->website);

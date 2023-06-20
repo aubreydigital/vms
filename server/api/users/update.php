@@ -24,8 +24,11 @@
 
   $user->user_name = $data->user_name;
   $user->user_email = $data->user_email;
-  $user->user_password = $data->user_password;
+  $user->profile_pic = $data->profile_pic;
+  // $password_hash = password_hash($data->user_password, PASSWORD_BCRYPT);
+  // $user->user_password = $password_hash;
   $user->full_name = $data->full_name;
+  $user->pronouns = $data->pronouns;
   $user->artist_name = $data->artist_name;
   $user->phone_number = $data->phone_number;
   $user->website = $data->website;
